@@ -18,13 +18,13 @@ namespace Fisher
         }
 
 
-
+        //метод для отрисовки графика
         private void DrawGraphic(List<double> x, List<double> y)
         {
             Graphic.Plot.AddScatter(x.ToArray(), y.ToArray(), System.Drawing.Color.FromArgb(255, 0, 0, 255), 1, 1);
             Graphic.Refresh();
         }
-
+        //обработка события изменения текста в поле для ввода варианта
         private void Variant_TextChanged(object sender, TextChangedEventArgs e)
         {
             try

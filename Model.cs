@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Fisher
 {
+    // Основной класс для проведения расчётов
     internal class Model
     {
         public List<double> x;
         public List<double> y;
 
-        public double[,] k = new double[3,3];
-        public double N = 20d;
 
+        //Конструктор, подставляющий исходные данные в зависимости от варианта
         public Model(int variant) 
         { 
             switch (variant)
@@ -45,7 +45,7 @@ namespace Fisher
                     throw new NotImplementedException("Введите данные для своего варианта");
             }
         }
-
+        //основной метод для расчёта точек нового графика
         public List<double> Calculate(int variant)
         {
             var matrix = new double[3, 3];
@@ -119,7 +119,7 @@ namespace Fisher
             return newY;
         }
 
-
+        //метод для нахождения элементов матрицы
         private double FindSumX(int xPos, int yPos)
         {
             double sum = 0;
@@ -130,6 +130,7 @@ namespace Fisher
             }
             return sum;
         }
+        //метод для нахождения свободных членов
         private double FindSumXY(int xPos)
         {
             double sum = 0;
@@ -140,7 +141,7 @@ namespace Fisher
             return sum;
         }
 
-
+        //метод для нахождения детерминанта матрицы
         private double FindDet(double[,] M)
         {
             return M[0, 0] * M[1, 1] * M[2, 2]
@@ -150,7 +151,7 @@ namespace Fisher
                  - M[0, 0] * M[1, 2] * M[2, 1]
                  - M[0, 1] * M[1, 0] * M[2, 2];
         }
-
+        //метод для нахождения коэффициента Фишера
         public double FindFisher(List<double> newY)
         {
             var sum = 0d;
