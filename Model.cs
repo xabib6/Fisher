@@ -48,20 +48,11 @@ namespace Fisher
         //основной метод для расчёта точек нового графика
         public List<double> Calculate(int variant)
         {
-            var matrix = new double[3, 3];
-            var matrixA = new double[3, 3];
-            var matrixB = new double[3, 3];
-            var matrixC = new double[3, 3];
-            var p = new double[3];
+            var matrix = new double[3, 3];        
 
-            for (int i = 0; i < p.Length; i++)
+            for (int i = 0; i < 3; i++)
             {
-                p[i] = FindSumXY(i);
-            }
-
-            for (int i = 0; i < p.Length; i++)
-            {
-                for (int j = 0; j < p.Length; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     if (i + j == 4)
                     {
@@ -71,34 +62,21 @@ namespace Fisher
                     {
                         matrix[i, j] = FindSumX(i, j);
                     }
-
-                    if (j == 0)
-                    {
-                        matrixA[i, j] = p[i];
-                    }
-                    else
-                    {
-                        matrixA[i,j] = matrix[i, j];
-                    }
-                    if (j == 1)
-                    {
-                        matrixB[i, j] = p[i];
-                    }
-                    else
-                    {
-                        matrixB[i,j] = matrix[i, j];
-                    }
-                    if (j == 2)
-                    {
-                        matrixC[i, j] = p[i];
-                    }
-                    else
-                    {
-                        matrixC[i, j] = matrix[i, j];
-                    }
                 }
             }
-            
+
+            var matrixA =(double[,])matrix.Clone();
+            var matrixB =(double[,])matrix.Clone();
+            var matrixC =(double[,])matrix.Clone();
+            var p = new double[3];
+
+            for (int i = 0; i < p.Length; i++)
+            {
+                p[i] = FindSumXY(i);
+                matrixA[i, 0] = p[i];
+                matrixB[i, 1] = p[i];
+                matrixC[i, 2] = p[i];
+            }
             var det = FindDet(matrix);
             var detA = FindDet(matrixA);
             var detB = FindDet(matrixB);    
@@ -175,6 +153,9 @@ namespace Fisher
     
         }
         
-
+        private void ReplaceColumn(int row, int column, double[,] mainMatrix, double[,] subMatrix, double p)
+        {            
+                subMatrix[row, column] = p;
+        }
     }
 }
