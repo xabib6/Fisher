@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,9 +20,9 @@ namespace Fisher
 
 
         //метод для отрисовки графика
-        private void DrawGraphic(List<double> x, List<double> y)
+        private void DrawGraphic(List<double> x, List<double> y, Color color)
         {
-            Graphic.Plot.AddScatter(x.ToArray(), y.ToArray(), System.Drawing.Color.FromArgb(255, 0, 0, 255), 1, 1);
+            Graphic.Plot.AddScatter(x.ToArray(), y.ToArray(), color, 1, 1);
             Graphic.Refresh();
         }
         //обработка события изменения текста в поле для ввода варианта
@@ -33,14 +34,14 @@ namespace Fisher
                 var variant = Text?.Text;
                 Variant = int.Parse(variant);
                 Model model = new Model(Variant);
-                DrawGraphic(model.x, model.y);
+                DrawGraphic(model.x, model.y, Color.DarkViolet);
                 var newY = model.Calculate(Variant);
-                DrawGraphic(model.x, newY);
+                DrawGraphic(model.x, newY, Color.Crimson);
                 MessageBox.Show(model.FindFisher(newY).ToString());
             }
             catch (Exception ex)
             {
-               // MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
     }

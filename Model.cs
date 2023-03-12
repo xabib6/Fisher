@@ -48,7 +48,7 @@ namespace Fisher
         //основной метод для расчёта точек нового графика
         public List<double> Calculate(int variant)
         {
-            var matrix = new double[3, 3];        
+            var matrix = new double[3, 3];
 
             for (int i = 0; i < 3; i++)
             {
@@ -65,11 +65,11 @@ namespace Fisher
                 }
             }
 
-            var matrixA =(double[,])matrix.Clone();
-            var matrixB =(double[,])matrix.Clone();
-            var matrixC =(double[,])matrix.Clone();
-            var p = new double[3];
+            var matrixA = (double[,])matrix.Clone();
+            var matrixB = (double[,])matrix.Clone();
+            var matrixC = (double[,])matrix.Clone();
 
+            var p = new double[3];
             for (int i = 0; i < p.Length; i++)
             {
                 p[i] = FindSumXY(i);
@@ -77,15 +77,15 @@ namespace Fisher
                 matrixB[i, 1] = p[i];
                 matrixC[i, 2] = p[i];
             }
+
             var det = FindDet(matrix);
             var detA = FindDet(matrixA);
-            var detB = FindDet(matrixB);    
+            var detB = FindDet(matrixB);
             var detC = FindDet(matrixC);
 
             var A = detA / det;
             var B = detB / det;
             var C = detC / det;
-
 
             var newY = new List<double>();
 
@@ -153,9 +153,5 @@ namespace Fisher
     
         }
         
-        private void ReplaceColumn(int row, int column, double[,] mainMatrix, double[,] subMatrix, double p)
-        {            
-                subMatrix[row, column] = p;
-        }
     }
 }
